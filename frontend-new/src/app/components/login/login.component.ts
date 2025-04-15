@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,14 +12,16 @@ export class LoginComponent {
   password: string = '';
   error: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private _authService: AuthService) {}
 
-  login() {
+  async login() {
     const loginPayload = {
       username: this.username,
       password: this.password
     };
-
+    const _loginResp = await this._authService.login(this.username,this.password)
+    this.router.navigate(['/profile']);
+    return 
     this.http.post('http://localhost:3000/login', loginPayload, {
       withCredentials: true
     }).subscribe({

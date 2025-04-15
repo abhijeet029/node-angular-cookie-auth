@@ -13,7 +13,7 @@ export class ProfileComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<{ message: string }>('http://localhost:3000/profile', {
+    this.http.get<{ message: string }>('http://localhost:3000/api/profile', {
       withCredentials: true // 👈 send the cookie with the request
     }).subscribe({
       next: (res) => {
